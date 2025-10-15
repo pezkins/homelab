@@ -33,7 +33,7 @@ env:
 jobs:
   validate:
     name: Validate Packer Template
-    runs-on: [self-hosted, Linux, X64]
+    runs-on: [self-hosted, Linux, X64, homelab]
     environment: prod
     outputs:
       template_valid: ${{ steps.validate.outputs.valid }}
