@@ -6,7 +6,7 @@ on:
       vm_id:
         description: 'VM Template ID'
         required: false
-        default: '9000'
+        default: '100'
         type: string
       force_build:
         description: 'Force build even if template exists'
@@ -77,7 +77,7 @@ jobs:
           proxmox_username = "${{ secrets.PROXMOX_USERNAME || 'root@pam!packer' }}"
 
           # VM template configuration
-          vm_id        = "9000"
+          vm_id        = "100"
           proxmox_node = "${{ secrets.PROXMOX_NODE || 'proxmox' }}"
 
           # ISO and installation settings
@@ -114,7 +114,7 @@ jobs:
       - name: Check and Delete Existing Template
         id: check_template
         run: |
-          VM_ID="${{ github.event.inputs.vm_id || '9000' }}"
+          VM_ID="${{ github.event.inputs.vm_id || '100' }}"
           NODE="${{ secrets.PROXMOX_NODE || 'proxmox' }}"
 
           echo "Checking if VM/template with ID $VM_ID exists..."
@@ -226,7 +226,7 @@ jobs:
       - name: Create Variables File
         working-directory: ${{ env.WORKING_DIR }}
         run: |
-          VM_ID="${{ github.event.inputs.vm_id || '9000' }}"
+          VM_ID="${{ github.event.inputs.vm_id || '100' }}"
           cat > variables.pkrvars.hcl << EOF
           # Proxmox connection details
           proxmox_url      = "${{ secrets.PROXMOX_URL }}"
@@ -273,7 +273,7 @@ jobs:
       - name: Template Build Summary
         if: success()
         run: |
-          VM_ID="${{ github.event.inputs.vm_id || '9000' }}"
+          VM_ID="${{ github.event.inputs.vm_id || '100' }}"
           echo "## 🎉 Packer Build Summary" >> $GITHUB_STEP_SUMMARY
           echo "- **Template ID:** $VM_ID" >> $GITHUB_STEP_SUMMARY
           echo "- **Template Name:** ubuntu-2404-template" >> $GITHUB_STEP_SUMMARY
